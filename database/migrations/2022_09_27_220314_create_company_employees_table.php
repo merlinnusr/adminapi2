@@ -15,6 +15,14 @@ return new class extends Migration
     {
         Schema::create('company_employees', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employee_id')
+            ->constrained('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreignId('company_id')
+            ->constrained('companies')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

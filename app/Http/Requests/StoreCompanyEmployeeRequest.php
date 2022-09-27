@@ -25,7 +25,7 @@ class StoreCompanyEmployeeRequest extends FormRequest
     {
         return [
             'company_id' => 'company_id|exists:companies,id',
-            'employee_id' => 'employee_id|exists:users,id',
+            'employee_id' => 'employee_id|unique:company_employees',
         ];
     }
 }
