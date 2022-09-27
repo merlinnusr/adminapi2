@@ -18,7 +18,9 @@ class CompanyFactory extends Factory
     {
         return [
             'name' => fake()->company(),
-            'address' => fake()->address()
+            'email' => fake()->safeEmail(),
+            'logo' => fake()->image(storage_path('app/public/images'),150,150, null, false),
+            'website' => "theoffice.com"
         ];
     }
 }
