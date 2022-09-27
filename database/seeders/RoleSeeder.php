@@ -17,9 +17,13 @@ class RoleSeeder extends Seeder
     public function run()
     {
         Role::create(['name' => 'admin']);
-
+        Role::create(['name' => 'employee']);
         User::whereEmail('admin@admin.com')
         ->first()
         ->assignRole('admin');
+
+        User::whereEmail('empleado@empleado.com')
+        ->first()
+        ->assignRole('employee');
     }
 }

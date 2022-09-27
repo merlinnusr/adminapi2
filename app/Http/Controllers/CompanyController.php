@@ -15,7 +15,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        return ok('Companies', Company::paginate(15) );
+
     }
 
     /**
@@ -27,7 +28,11 @@ class CompanyController extends Controller
     public function store(StoreCompanyRequest $request)
     {
         $data = $request->validated();
-        return $data;
+        $createdCompany = Company::create([
+            'name' => $data['name'],
+            'address' => $data['address'],
+        ]);
+        return ok('Created company', $createdCompany);
     }
 
     /**
@@ -38,18 +43,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Company $company)
-    {
-        //
+        return ok('Company', $company);
     }
 
     /**
@@ -61,7 +55,13 @@ class CompanyController extends Controller
      */
     public function update(UpdateCompanyRequest $request, Company $company)
     {
-        //
+        $data = $request->validated();
+        $companyUpdated = tap($company)->update([
+            'name' => $data['name'],
+            'address' => $data['address'],
+        ]);
+        return ok('Company has been updated', $companyUpdated);
+
     }
 
     /**
@@ -72,6 +72,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        return ok('Company has been deleted', $company);
     }
 }
