@@ -186,6 +186,7 @@ return [
          * Package Service Providers...
          */
         PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
         /*
          * Application Service Providers...
          */
