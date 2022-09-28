@@ -22,11 +22,13 @@ Route::group(['auth:api'], function ($router) {
 
     // Route::post('logout', 'AuthController@logout');
     // Route::post('refresh', 'AuthController@refresh');
-    Route::get('me', [AuthController::class, 'me']);
     Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin'], function () {
         Route::apiResource('company', CompanyController::class);
         Route::apiResource('employee', EmployeeController::class);
 
+    });
+    Route::group(['middleware' => ['role:employee'], 'prefix' => 'employee'], function () {
+        Route::get('me', [AuthController::class, 'me']);
     });
 });
 
