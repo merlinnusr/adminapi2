@@ -64,8 +64,18 @@ class EmployeeController extends Controller
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
         $data = $request->validated();
-        $companyEmployeeUpdated = tap($employee)->update($data);
-        return ok('Employee has been updated', $companyEmployeeUpdated);
+        $user = User::find($employee->user_id);
+
+        isset($data['name']) ? $user->name = $data['name'] : null;
+        isset($data['email']) ? $user->email = $data['email'] : null;
+        isset($data['last_name']) ? $user->last_name = $data['last_name'] : null;
+        isset($data['password']) ? $user->password = bcrypt($data['password']) : null;
+        $user->save();
+
+        isset($data['company_id']) ? $employee->company_id = $data['company_id'] : null;
+        isset($data['phone']) ? $employee->phone = $data['phone'] : null;
+        $employee->save();
+        return ok('Employee has been updated', $employee);
     }
 
     /**
@@ -76,7 +86,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        $employee->delete();
+        User::find($employee->user_id)->delete();
         return ok('Employee has been deleted', $employee);
 
     }

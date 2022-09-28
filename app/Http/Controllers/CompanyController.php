@@ -30,7 +30,7 @@ class CompanyController extends Controller
     {
         $data = $request->validated();
         $fileName = (new UploadImageService)->do($request->file('logo'), 'images/');
-        $data['logo'] = storage_path('app/public/images/').$fileName;
+        $data['logo'] = $fileName;
         $createdCompany = Company::create($data);
         return ok('Created company', $createdCompany);
     }
@@ -56,10 +56,19 @@ class CompanyController extends Controller
     public function update(UpdateCompanyRequest $request, Company $company)
     {
         $data = $request->validated();
-        $fileName = (new UploadImageService)->do($request->file('logo'), 'images/');
-        $data['logo'] = storage_path('app/public/images/').$fileName;
-        $companyUpdated = tap($company)->update($data);
-        return ok('Company has been updated', $companyUpdated);
+        
+        isset($data['name']) ? $company->name = $data['name'] : null;
+        
+        isset($data['logo']) 
+        ? 
+        $company->logo = (new UploadImageService)->do($request->file('logo'), 'images/')
+        : null;
+        
+        isset($data['email']) ? $company->email = $data['email'] : null;
+        isset($data['website']) ? $company->website = $data['website'] : null;
+        $company->save();
+
+        return ok('Company has been updated', $company);
 
     }
 
