@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Employee;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class EmployeeSeeder extends Seeder
@@ -21,7 +20,7 @@ class EmployeeSeeder extends Seeder
         Employee::create([
             'user_id' => $employee->id,
             'company_id' => 1,
-            'phone' => '3314137850'
+            'phone' => '3314137850',
         ]);
     }
 }

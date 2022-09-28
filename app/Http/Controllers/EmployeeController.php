@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
+use App\Models\Employee;
 use App\Models\User;
 
 class EmployeeController extends Controller
@@ -16,7 +16,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return ok('Users', Employee::paginate(15) );
+        return ok('Users', Employee::paginate(15));
     }
 
     /**
@@ -40,7 +40,8 @@ class EmployeeController extends Controller
             'company_id' => $data['company_id'],
             'phone' => $data['phone'],
         ]);
-        return ok('Created an employee', $employeeCreated );
+
+        return ok('Created an employee', $employeeCreated);
     }
 
     /**
@@ -75,6 +76,7 @@ class EmployeeController extends Controller
         isset($data['company_id']) ? $employee->company_id = $data['company_id'] : null;
         isset($data['phone']) ? $employee->phone = $data['phone'] : null;
         $employee->save();
+
         return ok('Employee has been updated', $employee);
     }
 
@@ -87,7 +89,7 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         User::find($employee->user_id)->delete();
-        return ok('Employee has been deleted', $employee);
 
+        return ok('Employee has been deleted', $employee);
     }
 }

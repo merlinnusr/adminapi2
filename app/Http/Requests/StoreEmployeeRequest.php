@@ -29,7 +29,7 @@ class StoreEmployeeRequest extends FormRequest
             'password' => 'required|confirmed',
             'last_name' => 'required',
             'company_id' => 'required|exists:companies,id',
-            'phone' => 'required|min:10|max:10'
+            'phone' => 'required|min:10|max:10',
         ];
     }
 }

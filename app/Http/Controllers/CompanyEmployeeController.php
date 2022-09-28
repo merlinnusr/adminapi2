@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CompanyEmployee;
 use App\Http\Requests\StoreCompanyEmployeeRequest;
 use App\Http\Requests\UpdateCompanyEmployeeRequest;
+use App\Models\CompanyEmployee;
 
 class CompanyEmployeeController extends Controller
 {
@@ -15,7 +15,7 @@ class CompanyEmployeeController extends Controller
      */
     public function index()
     {
-        return ok('Relation between company and employee', CompanyEmployee::paginate(15) );
+        return ok('Relation between company and employee', CompanyEmployee::paginate(15));
     }
 
     /**
@@ -31,8 +31,8 @@ class CompanyEmployeeController extends Controller
             'company_id' => $data['company_id'],
             'employee_id' => $data['employee_id'],
         ]);
-        return ok('Created a relation between company and employee', $companyEmployeeCreated );
 
+        return ok('Created a relation between company and employee', $companyEmployeeCreated);
     }
 
     /**
@@ -60,6 +60,7 @@ class CompanyEmployeeController extends Controller
             'company_id' => $data['company_id'],
             'employee_id' => $data['employee_id'],
         ]);
+
         return ok('Relation between company and employee has been updated', $companyEmployeeUpdated);
     }
 
@@ -72,6 +73,7 @@ class CompanyEmployeeController extends Controller
     public function destroy(CompanyEmployee $companyEmployee)
     {
         $companyEmployee->delete();
+
         return ok('Relation between company and employee has been deleted', $companyEmployee);
     }
 }

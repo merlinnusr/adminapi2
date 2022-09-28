@@ -29,7 +29,7 @@ class UpdateEmployeeRequest extends FormRequest
             'password' => 'confirmed',
             'last_name' => 'nullable',
             'company_id' => 'exists:companies,id',
-            'phone' => 'min:10|max:10'
+            'phone' => 'min:10|max:10',
         ];
     }
 }
