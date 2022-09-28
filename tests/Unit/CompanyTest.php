@@ -3,11 +3,10 @@
 namespace Tests\Unit;
 
 use App\Models\User;
-use GuzzleHttp\Psr7\UploadedFile;
-use Tests\TestCase;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile as HttpUploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Tests\TestCase;
 
 class CompanyTest extends TestCase
 {
@@ -32,37 +31,38 @@ class CompanyTest extends TestCase
                         'current_page',
                         'data' => [
                             '*' => [
-                                "id",
-                                "name",
-                                "email",
-                                "logo",
-                                "website",
-                                "created_at",
-                                "updated_at"
-                            ]
+                                'id',
+                                'name',
+                                'email',
+                                'logo',
+                                'website',
+                                'created_at',
+                                'updated_at',
+                            ],
                         ],
                         'first_page_url',
-                        "from",
-                        "last_page",
-                        "last_page_url",
-                        "links" => [
+                        'from',
+                        'last_page',
+                        'last_page_url',
+                        'links' => [
                             '*' => [
                                 'url',
                                 'label',
-                                'active'
-                            ]
+                                'active',
+                            ],
                         ],
-                        "next_page_url",
-                        "path",
-                        "per_page",
-                        "prev_page_url",
-                        "to",
-                        "total"
+                        'next_page_url',
+                        'path',
+                        'per_page',
+                        'prev_page_url',
+                        'to',
+                        'total',
                     ],
 
                 ]
             );
     }
+
     public function test_create()
     {
         $user = User::factory()->create();
@@ -70,30 +70,31 @@ class CompanyTest extends TestCase
         $response = $this->actingAs($user);
         Storage::fake('images');
         $data = [
-            "name" => "Empresita",
-            "email" => "empresita@gmaaisl.com",
-            "logo" => HttpUploadedFile::fake()->image('avatar.jpg', 150, 150),
-            "website" => 'http://theoffice.com'
+            'name' => 'Empresita',
+            'email' => 'empresita@gmaaisl.com',
+            'logo' => HttpUploadedFile::fake()->image('avatar.jpg', 150, 150),
+            'website' => 'http://theoffice.com',
         ];
         $response->post('api/admin/company', $data)
             ->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure(
                 [
-                    "status",
-                    "code",
-                    "msg",
-                    "data" => [
-                        "name",
-                        "logo",
-                        "email",
-                        "website",
-                        "updated_at",
-                        "created_at",
-                        "id",
-                    ]
+                    'status',
+                    'code',
+                    'msg',
+                    'data' => [
+                        'name',
+                        'logo',
+                        'email',
+                        'website',
+                        'updated_at',
+                        'created_at',
+                        'id',
+                    ],
                 ]
             );
     }
+
     public function test_show_one()
     {
         $user = User::factory()->create();
@@ -101,27 +102,27 @@ class CompanyTest extends TestCase
         $response = $this->actingAs($user);
         Storage::fake('images');
         $data = [
-            "name" => "Empresita",
-            "email" => "empresita@gmaaisl.com",
-            "logo" => HttpUploadedFile::fake()->image('avatar.jpg', 150, 150),
-            "website" => 'http://theoffice.com'
+            'name' => 'Empresita',
+            'email' => 'empresita@gmaaisl.com',
+            'logo' => HttpUploadedFile::fake()->image('avatar.jpg', 150, 150),
+            'website' => 'http://theoffice.com',
         ];
         $response->get('api/admin/company/1', $data)
             ->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure(
                 [
-                    "status",
-                    "code",
-                    "msg",
-                    "data" => [
-                        "id",
-                        "name",
-                        "email",
-                        "logo",
-                        "website",
-                        "created_at",
-                        "updated_at"
-                    ]
+                    'status',
+                    'code',
+                    'msg',
+                    'data' => [
+                        'id',
+                        'name',
+                        'email',
+                        'logo',
+                        'website',
+                        'created_at',
+                        'updated_at',
+                    ],
                 ]
             );
     }
@@ -135,18 +136,18 @@ class CompanyTest extends TestCase
             ->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure(
                 [
-                    "status",
-                    "code",
-                    "msg",
-                    "data" => [
-                        "id",
-                        "name",
-                        "email",
-                        "logo",
-                        "website",
-                        "created_at",
-                        "updated_at"
-                    ]
+                    'status',
+                    'code',
+                    'msg',
+                    'data' => [
+                        'id',
+                        'name',
+                        'email',
+                        'logo',
+                        'website',
+                        'created_at',
+                        'updated_at',
+                    ],
                 ]
             );
     }
@@ -160,18 +161,18 @@ class CompanyTest extends TestCase
             ->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure(
                 [
-                    "status",
-                    "code",
-                    "msg",
-                    "data" => [
-                        "id",
-                        "name",
-                        "email",
-                        "logo",
-                        "website",
-                        "created_at",
-                        "updated_at"
-                    ]
+                    'status',
+                    'code',
+                    'msg',
+                    'data' => [
+                        'id',
+                        'name',
+                        'email',
+                        'logo',
+                        'website',
+                        'created_at',
+                        'updated_at',
+                    ],
                 ]
             );
     }

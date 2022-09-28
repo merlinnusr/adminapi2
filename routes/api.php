@@ -24,8 +24,8 @@ Route::group(['auth:api'], function ($router) {
         Route::apiResource('employee', EmployeeController::class);
     });
     Route::group(['middleware' => ['role:employee'], 'prefix' => 'employee'], function () {
-        Route::get('me', [AuthController::class, 'me']);
+        Route::get('me', [AuthController::class, 'me'])->name('employees.me');
     });
 });
 
-Route::post('login', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, 'login'])->name('login');
