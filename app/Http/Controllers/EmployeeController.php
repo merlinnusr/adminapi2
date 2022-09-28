@@ -16,7 +16,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return ok('Users', User::paginate(15) );
+        return ok('Users', Employee::paginate(15) );
     }
 
     /**
@@ -28,7 +28,18 @@ class EmployeeController extends Controller
     public function store(StoreEmployeeRequest $request)
     {
         $data = $request->validated();
-        $employeeCreated = Employee::create($data);
+        $createdUser = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'last_name' => $data['last_name'],
+            'password' => bcrypt($data['password']),
+        ]);
+        $createdUser->assignRole('employee');
+        $employeeCreated = Employee::create([
+            'user_id' => $createdUser->id,
+            'company_id' => $data['company_id'],
+            'phone' => $data['phone'],
+        ]);
         return ok('Created an employee', $employeeCreated );
     }
 

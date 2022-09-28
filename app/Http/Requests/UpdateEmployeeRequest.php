@@ -24,9 +24,9 @@ class UpdateEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,id|unique:employees',
             'company_id' => 'required|exists:companies,id',
-            'phone' => 'required'
+            'phone' => 'required|min:10|max:10'
         ];
     }
 }

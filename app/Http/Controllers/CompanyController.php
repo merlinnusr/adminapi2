@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
+use App\Services\UploadImageService;
 
 class CompanyController extends Controller
 {
@@ -28,10 +29,9 @@ class CompanyController extends Controller
     public function store(StoreCompanyRequest $request)
     {
         $data = $request->validated();
-        $createdCompany = Company::create([
-            'name' => $data['name'],
-            'address' => $data['address'],
-        ]);
+        $fileName = (new UploadImageService)->do($request->file('logo'), 'images/');
+        $data['logo'] = storage_path('app/public/images/').$fileName;
+        $createdCompany = Company::create($data);
         return ok('Created company', $createdCompany);
     }
 
@@ -56,10 +56,9 @@ class CompanyController extends Controller
     public function update(UpdateCompanyRequest $request, Company $company)
     {
         $data = $request->validated();
-        $companyUpdated = tap($company)->update([
-            'name' => $data['name'],
-            'address' => $data['address'],
-        ]);
+        $fileName = (new UploadImageService)->do($request->file('logo'), 'images/');
+        $data['logo'] = storage_path('app/public/images/').$fileName;
+        $companyUpdated = tap($company)->update($data);
         return ok('Company has been updated', $companyUpdated);
 
     }

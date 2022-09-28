@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 use App\Models\CompanyEmployee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +25,8 @@ Route::group(['auth:api'], function ($router) {
     Route::get('me', [AuthController::class, 'me']);
     Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin'], function () {
         Route::apiResource('company', CompanyController::class);
-        Route::apiResource('company_employee', CompanyEmployee::class);
+        Route::apiResource('employee', EmployeeController::class);
+
     });
 });
 

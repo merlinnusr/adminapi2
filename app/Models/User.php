@@ -26,6 +26,10 @@ class User extends Authenticatable implements JWTSubject
         'last_name'
     ];
 
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
