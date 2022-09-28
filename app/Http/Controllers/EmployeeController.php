@@ -34,13 +34,18 @@ class EmployeeController extends Controller
             'last_name' => $data['last_name'],
             'password' => bcrypt($data['password']),
         ]);
+        if(empty($createdUser)){
+            throw new \Exception('Cannot update user');
+        }
         $createdUser->assignRole('employee');
         $employeeCreated = Employee::create([
             'user_id' => $createdUser->id,
             'company_id' => $data['company_id'],
             'phone' => $data['phone'],
         ]);
-
+        if(empty($employeeCreated)){
+            throw new \Exception('Cannot update employee');
+        }
         return ok('Created an employee', $employeeCreated);
     }
 
@@ -71,12 +76,16 @@ class EmployeeController extends Controller
         isset($data['email']) ? $user->email = $data['email'] : null;
         isset($data['last_name']) ? $user->last_name = $data['last_name'] : null;
         isset($data['password']) ? $user->password = bcrypt($data['password']) : null;
-        $user->save();
-
+        $updatedUser = $user->save();
+        if(empty($updatedUser)){
+            throw new \Exception('Cannot update user');
+        }
         isset($data['company_id']) ? $employee->company_id = $data['company_id'] : null;
         isset($data['phone']) ? $employee->phone = $data['phone'] : null;
-        $employee->save();
-
+        $updatedEmployee = $employee->save();
+        if(empty($updatedEmployee)){
+            throw new \Exception('Cannot update emmployee');
+        }
         return ok('Employee has been updated', $employee);
     }
 

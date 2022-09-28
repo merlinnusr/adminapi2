@@ -31,7 +31,9 @@ class CompanyController extends Controller
         $fileName = (new UploadImageService)->do($request->file('logo'), 'images/');
         $data['logo'] = $fileName;
         $createdCompany = Company::create($data);
-
+        if(empty($createdCompany)){
+            throw new \Exception('Cannot create new company');
+        }
         return ok('Created company', $createdCompany);
     }
 
@@ -66,7 +68,10 @@ class CompanyController extends Controller
 
         isset($data['email']) ? $company->email = $data['email'] : null;
         isset($data['website']) ? $company->website = $data['website'] : null;
-        $company->save();
+        $updatedCompany = $company->save();
+        if(empty($updatedCompany)){
+            throw new \Exception('Cannot update company');
+        }
 
         return ok('Company has been updated', $company);
     }
